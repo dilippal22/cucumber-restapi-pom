@@ -1,0 +1,38 @@
+{
+  "userId": "dilippal22",
+  "collectionOfIsbns": [
+        {
+            "isbn": "9788179921623",
+            "title": "The Monk Who Sold His Ferrari",
+            "subTitle": "A Fable About Fulfilling Your Dreams",
+            "author": "Robin Sharma",
+            "publish_date": "1996-12-22T00:00:00.000Z",
+            "publisher": "Harper Collins Publishers",
+            "pages": 198,
+            "description": "The Monk Who Sold His Ferrari is a self-help book by Robin Sharma, a writer and motivational speaker. The book is a business fable derived from Sharma's personal experiences after leaving his career as a litigation lawyer at the age of 25.",
+            "website": "https://www.robinsharma.com/book/the-monk-who-sold-his-ferrari"
+        },
+        {
+            "isbn": "9789352779390",
+            "title": "Let's Talk Money",
+            "subTitle": "You've Worked Hard for It, Now Make It Work for You",
+            "author": "Monika Halan",
+            "publish_date": "2018-07-05T00:00:00.000Z",
+            "publisher": "No Starch Press",
+            "pages": 184,
+            "description": "A very nice book about how to manage finances. I was very disorganised in managing my finances, but now after reading the book I am sure I will be organised. Very nicely written in a simple and easy way about the common mistakes we make in investing our money.",
+            "website": "https://leanpub.com/understandinges6/read"
+        },
+        {
+            "isbn": "9789380658827",
+            "title": "Understanding ECMAScript 7",
+            "subTitle": "The Advanced Guide for JavaScript Developers",
+            "author": "Dilip Pal",
+            "publish_date": "2020-07-07T00:00:00.000Z",
+            "publisher": "Free Press Journal",
+            "pages": 420,
+            "description": "ECMAScript 7 represents the advanced and biggest update to the core of JavaScript in the history of the language. In Understanding ECMAScript 7, expert developer Dilip Pal provides a complete and comphrensive guide to the object types, syntax, and other exciting changes that E",
+            "website": "https://leanpub.com/understandinges6/read"
+        }
+    ]
+}

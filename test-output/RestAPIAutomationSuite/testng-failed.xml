@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [RestAPIAutomationSuite]">
+  <test name="RestAPIAutomationTest(failed)">
+    <classes>
+      <class name="com.qa.bookstoreapi.GETBookStoreAPI">
+        <methods>
+          <include name="getListOfAvailableBooks"/>
+        </methods>
+      </class> <!-- com.qa.bookstoreapi.GETBookStoreAPI -->
+    </classes>
+  </test> <!-- RestAPIAutomationTest(failed) -->
+</suite> <!-- Failed suite [RestAPIAutomationSuite] -->

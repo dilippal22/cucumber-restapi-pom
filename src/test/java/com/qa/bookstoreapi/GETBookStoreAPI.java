@@ -1,18 +1,16 @@
 package com.qa.bookstoreapi;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.hamcrest.MatcherAssert.assertThat;
+import java.util.*;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.qa.util.Constants;
+import com.qa.util.*;
 
 import io.restassured.config.LogConfig;
 import io.restassured.http.Headers;
@@ -24,6 +22,9 @@ import io.restassured.response.Response;
  *
  */
 public class GETBookStoreAPI {
+	
+	Properties prop = ConfigReader.readProperties();
+	Map<String, String> queryParameter = new HashMap<String, String>();
 
 	/**
 	 * Method to validate status code
@@ -31,14 +32,14 @@ public class GETBookStoreAPI {
 	@Test
 	public void validateStatusCode() {
 		given().
-			baseUri(Constants.baseURL).
-			log().all().
+				baseUri(Constants.baseURL).
+				log().all().
 		when().
 				get(Constants.listOfAvailableBooksPathURI).
 		then().
 				log().ifError().
 				assertThat().
-				statusCode(200);
+				statusCode(Integer.parseInt(prop.getProperty("RESPONSE_STATUS_200_OK")));
 	}
 	
 	/**
@@ -47,8 +48,8 @@ public class GETBookStoreAPI {
 	@Test
 	public void validateResponseBody(){
 		with().
-			baseUri(Constants.baseURL).
-			log().headers().
+				baseUri(Constants.baseURL).
+				log().headers().
 		when().
 				get(Constants.listOfAvailableBooksPathURI).
 		then().
@@ -201,7 +202,7 @@ public class GETBookStoreAPI {
 		then().
 				log().ifError().
 				assertThat().
-				statusCode(200).
+				statusCode(Integer.parseInt(prop.getProperty("RESPONSE_STATUS_200_OK"))).
 				headers("Content-Type", "application/json; charset=utf-8", "Connection", "keep-alive", "X-Powered-By",
 						"Express");
 	}
@@ -218,12 +219,84 @@ public class GETBookStoreAPI {
 		then().
 				log().ifError().
 				assertThat().
-				statusCode(200).
+				statusCode(Integer.parseInt(prop.getProperty("RESPONSE_STATUS_200_OK"))).
 				extract().
 				headers();
 		
 		System.out.println("Header Name is: " + extractedHeaders.get("Content-Type").getName());
 		System.out.println("Header Value is: " + extractedHeaders.get("application/json; charset=utf-8").getValue());
+	}
+	
+	/**
+	 * Method to validate status code using query Parameter
+	 */
+	@Test
+	public void validateStatusCodeUsingSingleQueryParameter() {
+		given().
+				baseUri(Constants.baseURL).
+				queryParam("isbn", "9781449325862").
+				log().all().
+		when().
+				get(Constants.listOfAvailableBooksPathURI).
+		then().
+				log().ifError().
+				assertThat().
+				statusCode(Integer.parseInt(prop.getProperty("RESPONSE_STATUS_200_OK")));
+	}
+	
+	/**
+	 * Method to validate status code by parameterizing the multiple query Parameter 
+	 */
+	@Test
+	public void validateStatusCodeUsingMultipleQueryParameter() {
+		queryParameter.put("isbn", "9781449331818");
+		queryParameter.put("isbn", "9781449337711");
+		
+		given().
+				baseUri(Constants.baseURL).
+				queryParams(queryParameter).
+				log().all().
+		when().
+				get(Constants.listOfAvailableBooksPathURI).
+		then().
+				log().ifError().
+				assertThat().
+				statusCode(Integer.parseInt(prop.getProperty("RESPONSE_STATUS_200_OK")));
+	}
+	
+	/**
+	 * Method to validate status code using multi value query Parameter.
+	 * Multi Values can be separated by comma(,) or semi-colon(;) also 
+	 */
+	@Test
+	public void validateStatusCodeUsingMultValueyParameter() {
+		given().
+				baseUri(Constants.baseURL).
+				queryParams("isbn", "9781449331818","9781449337711").
+				log().all().
+		when().
+				get(Constants.listOfAvailableBooksPathURI).
+		then().
+				log().ifError().
+				assertThat().
+				statusCode(Integer.parseInt(prop.getProperty("RESPONSE_STATUS_200_OK")));
+	}
+	
+	/**
+	 * Method to validate JSON Schema
+	 */
+	@Test
+	public void validateBookStoreSchema() {
+		given().
+				baseUri(Constants.baseURL).
+				log().all().
+		when().
+				get(Constants.listOfAvailableBooksPathURI).
+		then().
+				log().ifError().
+				assertThat().
+				statusCode(Integer.parseInt(prop.getProperty("RESPONSE_STATUS_200_OK"))).
+				body(matchesJsonSchemaInClasspath(Constants.getBookStoreSchema));
 	}
 	
 	
